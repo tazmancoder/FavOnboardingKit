@@ -10,6 +10,21 @@ import UIKit
 class OnboardingVC: UIViewController {
     private let slides: [Slide]
     private let tintColor: UIColor
+    private lazy var transitionView: TransitionView = {
+        let view = TransitionView()
+        return view
+    }()
+    
+    private lazy var buttonContainerView: ButtonContainerView = {
+       let view = ButtonContainerView()
+        return view
+    }()
+    
+    private lazy var stackView: UIStackView = {
+        let view = UIStackView(arrangedSubviews: [transitionView, buttonContainerView])
+        view.axis = .vertical
+        return view
+    }()
     
     init(slides: [Slide], tintColor: UIColor) {
         self.slides = slides
@@ -23,6 +38,21 @@ class OnboardingVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupViews()
         view.backgroundColor = .red
     }
+    
+    private func setupViews() {
+        view.backgroundColor = .red
+        view.addSubview(stackView)
+        
+        stackView.snp.makeConstraints { make in
+            make.edges.equalTo(self.view)
+        }
+        
+        buttonContainerView.snp.makeConstraints { make in
+            make.height.equalTo(120)
+        }
+    }
+
 }
