@@ -10,13 +10,23 @@ import UIKit
 class OnboardingVC: UIViewController {
     private let slides: [Slide]
     private let tintColor: UIColor
+    
     private lazy var transitionView: TransitionView = {
         let view = TransitionView()
         return view
     }()
     
     private lazy var buttonContainerView: ButtonContainerView = {
-       let view = ButtonContainerView()
+        let view = ButtonContainerView(tintColor: tintColor)
+        
+        view.nextButtonDidTap = {
+            print("next button tapped")
+        }
+        
+        view.getStartedButtonDidTap = {
+            print("get started tapped")
+        }
+        
         return view
     }()
     
@@ -39,7 +49,7 @@ class OnboardingVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        view.backgroundColor = .red
+        view.backgroundColor = .white
     }
     
     private func setupViews() {
